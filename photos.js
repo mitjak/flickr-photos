@@ -74,34 +74,34 @@ var setupPhotos = (function ($) {
         };
     }
  	
-    function favoriteIcon() {
-    	var favorites = [];
-    	if (localStorage.favorites)
+	function favoriteIcon() {
+		var favorites = [];
+		if (localStorage.favorites)
 			favorites = JSON.parse(localStorage.favorites);
-	    
-	    return function (img) {
-	    	var favIcon = document.createElement('a');
-	    	favIcon.href = '#';
-	        if ( favorites.indexOf(img.src) >= 0 ) {
-	    		favIcon.className = 'icon-heart';
-	   		} else {
-	   			favIcon.className = 'icon-heart-empty';
-	        }
+			
+		return function (img) {
+			var favIcon = document.createElement('a');
+			favIcon.href = '#';
+			if ( favorites.indexOf(img.src) >= 0 ) {
+				favIcon.className = 'icon-heart';
+			} else {
+				favIcon.className = 'icon-heart-empty';
+			}
 			favIcon.onclick = function () {
-	        	if ( favorites.indexOf(img.src) >= 0 ) {
-		    		favorites.splice( favorites.indexOf(img.src), 1 );
-		    		favIcon.className = 'icon-heart-empty';
-		    	} else {
-		    		favorites.push(img.src);
+				if ( favorites.indexOf(img.src) >= 0 ) {
+					favorites.splice( favorites.indexOf(img.src), 1 );
+					favIcon.className = 'icon-heart-empty';
+				} else {
+					favorites.push(img.src);
 					favIcon.className = 'icon-heart';
-		    	}
-		    	localStorage.favorites = JSON.stringify(favorites);
-		    	return false;
-	        };
-	        
-	        return favIcon;
+				}
+				localStorage.favorites = JSON.stringify(favorites);
+				return false;
+			};
+			
+			return favIcon;
 		}
-    }
+	}
 
     // ----
     
