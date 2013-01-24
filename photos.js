@@ -1,6 +1,7 @@
 /*global jQuery*/
 
 var setupPhotos = (function ($) {
+	
     function each (items, callback) {
         var i;
         for (i = 0; i < items.length; i += 1) {
@@ -60,15 +61,46 @@ var setupPhotos = (function ($) {
         img.src = photo;
         return img;
     }
-
+	
     function imageAppender (id) {
         var holder = document.getElementById(id);
+        var icon = favoriteIcon();
         return function (img) {
             var elm = document.createElement('div');
             elm.className = 'photo';
             elm.appendChild(img);
+            elm.appendChild( icon(img) );
             holder.appendChild(elm);
         };
+    }
+ 	
+    function favoriteIcon() {
+    	var favorites = [];
+    	if (localStorage.favorites)
+			favorites = JSON.parse(localStorage.favorites);
+	    
+	    return function (img) {
+	    	var favIcon = document.createElement('a');
+	    	favIcon.href = '#';
+	        if ( favorites.indexOf(img.src) >= 0 ) {
+	    		favIcon.className = 'icon-heart';
+	   		} else {
+	   			favIcon.className = 'icon-heart-empty';
+	        }
+			favIcon.onclick = function () {
+	        	if ( favorites.indexOf(img.src) >= 0 ) {
+		    		favorites.splice( favorites.indexOf(img.src), 1 );
+		    		favIcon.className = 'icon-heart-empty';
+		    	} else {
+		    		favorites.push(img.src);
+					favIcon.className = 'icon-heart';
+		    	}
+		    	localStorage.favorites = JSON.stringify(favorites);
+		    	return false;
+	        };
+	        
+	        return favIcon;
+		}
     }
 
     // ----
@@ -82,4 +114,5 @@ var setupPhotos = (function ($) {
             callback();
         });
     };
+    
 }(jQuery));

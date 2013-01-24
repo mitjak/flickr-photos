@@ -13,6 +13,7 @@ body {
     margin: 0 2px 2px 0;
     overflow: hidden;
     height: 160px;
+    position: relative;
 }
 
 .photo,
@@ -20,3 +21,20 @@ body {
     min-width: 160px;
     max-width: 240px;
 }
+
+.photo a {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	color: #ffffff;
+	font-size: 20px;
+	text-shadow: #000000 0px 0px 3px;
+}
+/*
+.photo a:before {
+	content: "\f08a";
+}
+
+.photo .favorite:before {
+	content: "\f004";
+}*/
